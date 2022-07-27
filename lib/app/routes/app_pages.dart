@@ -9,7 +9,7 @@ import 'package:nowapps_machine_test/app/modules/home/views/home_view.dart';
 import 'package:nowapps_machine_test/app/modules/no_order/bindings/no_order_binding.dart';
 import 'package:nowapps_machine_test/app/modules/no_order/views/no_order_view.dart';
 import 'package:nowapps_machine_test/app/modules/otp_login/bindings/otp_login_binding.dart';
-import 'package:nowapps_machine_test/app/modules/otp_login/views/otp_login_view.dart';
+import 'package:nowapps_machine_test/app/modules/otp_login/views/enter_phone_no_view.dart';
 import 'package:nowapps_machine_test/app/modules/splash/bindings/splash_binding.dart';
 import 'package:nowapps_machine_test/app/modules/splash/views/splash_view.dart';
 import 'package:nowapps_machine_test/app/modules/take_order/bindings/take_order_binding.dart';
@@ -30,7 +30,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.OTP_LOGIN,
-      page: () => OtpLoginView(),
+      page: () => EnterPhoneNoView(),
       binding: OtpLoginBinding(),
     ),
     GetPage(

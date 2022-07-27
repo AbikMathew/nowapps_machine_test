@@ -16,17 +16,23 @@ class SplashController extends GetxController {
     if (checkedIn == true) {
       Future.delayed(
         const Duration(milliseconds: 1500),
-        () => Get.offAllNamed(Routes.CHECKED_IN),
+        () => Get.offAllNamed(
+          Routes.CHECKED_IN,
+          arguments: getStorage.read('retailer_name'),
+        ),
       );
     }
-    //if loggedIn but not checkedIn => Go to home page
+    //if only loggedIn => Go to home page
     else if (loggedIn == true) {
       Future.delayed(
         const Duration(milliseconds: 1500),
         () => Get.offAllNamed(Routes.HOME),
       );
     } else {
-      Get.offAllNamed(Routes.OTP_LOGIN);
+      Future.delayed(
+        const Duration(milliseconds: 1500),
+        () => Get.offAllNamed(Routes.OTP_LOGIN),
+      );
     }
   }
 

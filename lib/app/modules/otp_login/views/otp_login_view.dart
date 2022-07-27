@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:nowapps_machine_test/app/routes/app_pages.dart';
+import 'package:pinput/pinput.dart';
 
 import '../controllers/otp_login_controller.dart';
 
@@ -9,13 +11,22 @@ class OtpLoginView extends GetView<OtpLoginController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('OtpLoginView'),
+        title: Text('OTP Verification'),
         centerTitle: true,
       ),
-      body: Center(
-        child: Text(
-          'OtpLoginView is working',
-          style: TextStyle(fontSize: 20),
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          // crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(),
+            Pinput(
+              onCompleted: (value) => 
+              controller.verifyOtp(value),
+              
+            ),
+          ],
         ),
       ),
     );

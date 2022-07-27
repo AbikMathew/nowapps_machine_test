@@ -1,8 +1,13 @@
+import 'dart:developer';
+
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class NoOrderController extends GetxController {
-  //TODO: Implement NoOrderController
-
+  final reasonController = TextEditingController().obs;
+  submit() {
+    // log(reasonController.value.text);
+  }
   final count = 0.obs;
   @override
   void onInit() {
