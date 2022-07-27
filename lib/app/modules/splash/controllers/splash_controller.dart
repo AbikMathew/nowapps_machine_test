@@ -19,7 +19,7 @@ class SplashController extends GetxController {
         () => Get.offAllNamed(Routes.CHECKED_IN),
       );
     }
-    //if only loggedIn => Go to home page
+    //if loggedIn but not checkedIn => Go to home page
     else if (loggedIn == true) {
       Future.delayed(
         const Duration(milliseconds: 1500),
