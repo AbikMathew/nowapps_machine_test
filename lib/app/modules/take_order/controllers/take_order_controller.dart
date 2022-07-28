@@ -14,20 +14,24 @@ class TakeOrderController extends GetxController {
   var _products = {}.obs;
 
   void addProduct(Product product) {
-    
     _products.containsKey(product.id)
-        ? _products[product.id] = [_products[product.id][0]+1,product]
-        : _products[product.id] = [1,product];
+        ? _products[product.id] = [_products[product.id][0] + 1, product]
+        : _products[product.id] = [1, product];
 
     log(_products.toString());
-    log(_products.value.values.toString());
+    // log(_products[2][2].name.toString());
 
     Get.snackbar(
       'Product Added',
       'You have added ${product.name} to the cart',
+      snackPosition: SnackPosition.BOTTOM,
       backgroundColor: Colors.white,
       duration: Duration(milliseconds: 1500),
     );
+var a = _products[1].toList();
+// log(a.toString());
+log(_products[1][1].toString());
+    // log(_products[1].toList().toString());
   }
 
 // void removeProduct(){}

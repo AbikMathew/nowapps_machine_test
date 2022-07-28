@@ -28,13 +28,7 @@ class CartView extends GetView<CartController> {
                   child: ListView.builder(
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
-                      return CartProductCard(
-                          controller: takeOrderController,
-                          product:
-                              takeOrderController.product.value.values[1],
-                          quatity:
-                              takeOrderController.product.value.values.toList()[index],
-                          index: index);
+                      return CartProductCard(index: index);
                     },
                     itemCount: takeOrderController.product.value.length,
                   ),
@@ -74,21 +68,23 @@ class CartView extends GetView<CartController> {
 }
 
 class CartProductCard extends StatelessWidget {
-  final TakeOrderController controller;
-  final Product product;
-  final int quatity;
+  // final TakeOrderController controller;
+  // final Product product;
+  // final int quatity;
   final int index;
 
-  const CartProductCard({
+  final takeOrderController = Get.find<TakeOrderController>();
+  CartProductCard({
     Key? key,
-    required this.controller,
-    required this.product,
-    required this.quatity,
+    // required this.controller,
+    // required this.product,
+    // required this.quatity,
     required this.index,
   }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
+    var _product = takeOrderController.product[index + 1][1];
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -108,7 +104,7 @@ class CartProductCard extends StatelessWidget {
                   width: 32.w,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
-                    child: Image.network(image),
+                    child: Image.network(_product.image),
                   ),
                 ),
                 SizedBox(width: 8),
@@ -119,12 +115,12 @@ class CartProductCard extends StatelessWidget {
                     SizedBox(
                       width: 55.w,
                       child: Text(
-                        'Redmi K20 Pro',
+                        _product.name,
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
                     ),
                     Text(
-                      "₹100",
+                      _product.price.toString(),
                       style: TextStyle(color: Colors.red, fontSize: 20),
                     ),
                   ],
@@ -138,6 +134,7 @@ class CartProductCard extends StatelessWidget {
                 width: 115,
                 height: 40,
                 child: QuantityChanger(
+                  index: index,
                   color: Colors.blue,
                   onPressed: () {},
                 ),

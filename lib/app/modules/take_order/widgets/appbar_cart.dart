@@ -18,7 +18,7 @@ class CartIcon extends StatelessWidget {
         children: [
           IconButton(
             onPressed: () => Get.toNamed(Routes.CART),
-            icon: const Icon(Icons.shopping_cart),
+            icon: const Icon(Icons.shopping_cart_outlined),
             iconSize: 35,
           ),
           CircleAvatar(

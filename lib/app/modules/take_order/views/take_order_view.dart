@@ -1,11 +1,8 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:nowapps_machine_test/app/modules/take_order/model/product.dart';
 import 'package:nowapps_machine_test/app/modules/take_order/widgets/appbar_cart.dart';
-import 'package:nowapps_machine_test/app/routes/app_pages.dart';
 import 'package:sizer/sizer.dart';
 import '../controllers/take_order_controller.dart';
 
@@ -15,18 +12,7 @@ class TakeOrderView extends GetView<TakeOrderController> {
     return Obx(() => Scaffold(
           appBar: AppBar(
             title: Text('Take Order'),
-            centerTitle: true,
-            actions: [
-              CartIcon()
-              // IconButton(
-              //   icon: Icon(Icons.shopping_cart),
-              //   onPressed: () {
-              //     Get.toNamed(Routes.CART);
-              //   },
-              // ),
-
-              // Text(controller.product.length.toString()),
-            ],
+            actions: [CartIcon()],
           ),
           body: controller.isProductLoading.value
               ? Center(child: CircularProgressIndicator())
