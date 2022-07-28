@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:nowapps_machine_test/app/modules/take_order/model/product.dart';
+import 'package:nowapps_machine_test/app/modules/take_order/widgets/appbar_cart.dart';
 import 'package:nowapps_machine_test/app/routes/app_pages.dart';
 import 'package:sizer/sizer.dart';
 import '../controllers/take_order_controller.dart';
@@ -14,12 +17,15 @@ class TakeOrderView extends GetView<TakeOrderController> {
             title: Text('Take Order'),
             centerTitle: true,
             actions: [
-              IconButton(
-                icon: Icon(Icons.shopping_cart),
-                onPressed: () {
-                  Get.toNamed(Routes.CART);
-                },
-              ),
+              CartIcon()
+              // IconButton(
+              //   icon: Icon(Icons.shopping_cart),
+              //   onPressed: () {
+              //     Get.toNamed(Routes.CART);
+              //   },
+              // ),
+
+              // Text(controller.product.length.toString()),
             ],
           ),
           body: controller.isProductLoading.value
@@ -108,6 +114,7 @@ class ProductTile extends StatelessWidget {
                       name: product.prodName.toString(),
                       price: double.parse(product.prodMrp!),
                       image: product.prodImage.toString(),
+                      id: int.parse(product.prodId!),
                     ),
                   );
                 },

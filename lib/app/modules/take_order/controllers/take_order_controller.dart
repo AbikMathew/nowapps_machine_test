@@ -8,17 +8,19 @@ import 'package:nowapps_machine_test/app/modules/take_order/model/product_respon
 
 class TakeOrderController extends GetxController {
   var isProductLoading = false.obs;
-
   ProductResponse? productResponse;
+
 // Add a dictionary to store the products in the cart
-  final _products = {}.obs;
+  var _products = {}.obs;
 
   void addProduct(Product product) {
-    if (_products.containsKey(product)) {
-      _products[product] += 1;
-    } else {
-      _products[product] = 1;
-    }
+    
+    _products.containsKey(product.id)
+        ? _products[product.id] = [_products[product.id][0]+1,product]
+        : _products[product.id] = [1,product];
+
+    log(_products.toString());
+    log(_products.value.values.toString());
 
     Get.snackbar(
       'Product Added',
@@ -26,13 +28,11 @@ class TakeOrderController extends GetxController {
       backgroundColor: Colors.white,
       duration: Duration(milliseconds: 1500),
     );
-
-    log(_products.toString());
   }
 
 // void removeProduct(){}
 
-// get product
+  get product => _products;
 
 // get productSubTotal
 
