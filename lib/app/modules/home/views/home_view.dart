@@ -29,7 +29,11 @@ class HomeView extends GetView<HomeController> {
         separatorBuilder: (context, index) => Divider(),
         itemCount: a.length,
         itemBuilder: (context, index) {
-          return RetailerCard(a: a, index: index,controller: controller,);
+          return RetailerCard(
+            a: a,
+            index: index,
+            controller: controller,
+          );
         },
       ),
     );
@@ -69,7 +73,7 @@ class RetailerCard extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Image.asset(
                     'assets/images/channel_connect_logo.webp',
-                    height: 150,
+                    height: 120,
                   ),
                 ),
                 Padding(
@@ -78,10 +82,10 @@ class RetailerCard extends StatelessWidget {
                     children: [
                       Text(
                         a[index],
-                        style: TextStyle(),
+                        style: TextStyle(color: Colors.white,fontSize: 25),
                       ),
-                      Text(a[index]),
-                      Text(a[index]),
+                      // Text(a[index]),
+                      // Text(a[index]),
                     ],
                   ),
                 )
@@ -91,8 +95,24 @@ class RetailerCard extends StatelessWidget {
               width: 90.w,
               child: ElevatedButton(
                 onPressed: () {
-                  controller.checkinToRetailer(a[index]);
-                  // Get.offAllNamed(Routes.CHECKED_IN, arguments: a[index]);
+                  Get.defaultDialog(
+                    title: 'Check In',
+                    content: Text(
+                        'Are you sure you want to check in to ${a[index]}?'),
+                    actions: [
+                      ElevatedButton(
+                        child: Text('Cancel'),
+                        onPressed: () => Get.back(),
+                      ),
+                      ElevatedButton(
+                        child: Text('Check In'),
+                        onPressed: () {
+                          controller.checkinToRetailer(a[index]);
+                          Get.back();
+                        },
+                      ),
+                    ],
+                  );
                 },
                 child: Text('Check In'),
               ),
