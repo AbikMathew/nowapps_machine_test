@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -15,54 +17,61 @@ class CartView extends GetView<CartController> {
   final takeOrderController = Get.find<TakeOrderController>();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Cart'),
-        centerTitle: true,
-      ),
-      body: takeOrderController.product.value.isEmpty
-          ? Center(child: Text('No Products are added to the cart'))
-          : Column(
-              children: [
-                Expanded(
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return CartProductCard(index: index);
-                    },
-                    itemCount: takeOrderController.product.value.length,
+    return Obx(
+      () => Scaffold(
+        appBar: AppBar(
+          title: Text('Cart'),
+          centerTitle: true,
+        ),
+        body: takeOrderController.product.value.isEmpty
+            ? Center(child: Text('No Products are added to the cart'))
+            : Column(
+                children: [
+                  Expanded(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        final product =
+                            takeOrderController.product[index + 1][2];
+                            log('vishvajith log');
+                        log(product.toString());
+                        return Container();
+                        // return CartProductCard(index: index);
+                      },
+                      itemCount: takeOrderController.product.value.length,
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Total',
-                            style: TextStyle(fontSize: 25),
-                          ),
-                          Text(
-                            '₹ 200',
-                            style: TextStyle(fontSize: 25),
-                          ),
-                          // Text('data'),
-                        ],
-                      ),
-                      SizedBox(
-                        width: 95.w,
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          child: Text('Buy Now'),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Total',
+                              style: TextStyle(fontSize: 25),
+                            ),
+                            Text(
+                              '₹ 200',
+                              style: TextStyle(fontSize: 25),
+                            ),
+                            // Text('data'),
+                          ],
                         ),
-                      ),
-                    ],
+                        SizedBox(
+                          width: 95.w,
+                          child: ElevatedButton(
+                            onPressed: () {},
+                            child: Text('Buy Now'),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            ),
+                ],
+              ),
+      ),
     );
   }
 }

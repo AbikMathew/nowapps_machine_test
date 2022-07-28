@@ -32,7 +32,9 @@ class QuantityChanger extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           IconButton(
-            onPressed: onPressed,
+            onPressed: () =>
+            // log(controller.product[index + 1][1].toString()),
+                controller.removeProduct(controller.product[index + 1][1]),
             icon: const Icon(
               Icons.remove,
               color: Colors.white,

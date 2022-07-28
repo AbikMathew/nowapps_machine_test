@@ -15,8 +15,12 @@ class TakeOrderController extends GetxController {
 
   void addProduct(Product product) {
     _products.containsKey(product.id)
-        ? _products[product.id] = [_products[product.id][0] + 1, product]
-        : _products[product.id] = [1, product];
+        ? _products[product.id] = [
+            _products[product.id][0] + 1,
+            product,
+            product.id
+          ]
+        : _products[product.id] = [1, product, product.id];
 
     log(_products.toString());
     // log(_products[2][2].name.toString());
@@ -28,13 +32,25 @@ class TakeOrderController extends GetxController {
       backgroundColor: Colors.white,
       duration: Duration(milliseconds: 1500),
     );
-var a = _products[1].toList();
+    // var a = _products[1].toList();
 // log(a.toString());
-log(_products[1][1].toString());
+    log(_products[product.id][0].toString());
     // log(_products[1].toList().toString());
   }
 
-// void removeProduct(){}
+  void removeProduct(Product product) {
+    var productQuantity = _products[product.id][0];
+    // log(productQuantity.toString());
+
+    if (_products.containsKey(product.id) && productQuantity == 1) {
+      log('kerunnundoo');
+      log(product.id.toString());
+      _products.removeWhere((key, value) => key == product.id);
+    } else {
+      _products[product.id][0]--;
+      log(_products[product.id][0].toString());
+    }
+  }
 
   get product => _products;
 
