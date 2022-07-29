@@ -168,3 +168,18 @@ class CartProductCard extends StatelessWidget {
     );
   }
 }
+
+class Scerfold {
+  // Scerfold();
+  // Scerfold();
+  int? id;
+  int? obj;
+  
+  
+  Scerfold(this.id,this.obj);
+  // Scerfold(10,10);
+}
+Scerfold scObj=Scerfold(10,10);
+
+
+  // Scerfold()

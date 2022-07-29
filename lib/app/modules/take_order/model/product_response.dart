@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class ProductResponse {
   bool? status;
   String? message;
@@ -84,4 +86,14 @@ class Products {
     data['prodMrp'] = prodMrp;
     return data;
   }
+}
+
+class Sceffold{
+  Widget? appbar;
+  Widget? body;
+  
+Sceffold();
+
+Sceffold.withAppBarAndBody(Widget appbar, Widget body);
+
 }

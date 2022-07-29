@@ -8,17 +8,17 @@ import 'package:nowapps_machine_test/app/modules/take_order/controllers/take_ord
 // import 'package:flutter/src/widgets/framework.dart';
 
 class QuantityChanger extends StatelessWidget {
+  final Color color;
+  final VoidCallback onPressed;
+  final int index;
+  var controller = Get.find<TakeOrderController>();
+  
   QuantityChanger({
     Key? key,
     required this.index,
     required this.color,
     required this.onPressed,
   }) : super(key: key);
-
-  final Color color;
-  final VoidCallback onPressed;
-  final int index;
-  var controller = Get.find<TakeOrderController>();
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class QuantityChanger extends StatelessWidget {
         children: [
           IconButton(
             onPressed: () =>
-            // log(controller.product[index + 1][1].toString()),
+                // log(controller.product[index + 1][1].toString()),
                 controller.removeProduct(controller.product[index + 1][1]),
             icon: const Icon(
               Icons.remove,
