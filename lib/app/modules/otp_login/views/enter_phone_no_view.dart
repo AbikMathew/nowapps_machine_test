@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:nowapps_machine_test/app/modules/otp_login/bindings/otp_login_binding.dart';
-import 'package:nowapps_machine_test/app/modules/otp_login/views/otp_login_view.dart';
-
 import '../controllers/otp_login_controller.dart';
 
 class EnterPhoneNoView extends GetView<OtpLoginController> {
@@ -27,7 +24,7 @@ class EnterPhoneNoView extends GetView<OtpLoginController> {
               height: 10,
             ),
             Obx(
-              () => TextField( 
+              () => TextField(
                 onChanged: (value) {},
                 controller: controller.phoneNumberController.value,
                 keyboardType: TextInputType.number,
@@ -48,10 +45,7 @@ class EnterPhoneNoView extends GetView<OtpLoginController> {
     return ElevatedButton(
       child: Text('Login'),
       onPressed: () {
-        Get.offAll(
-          OtpLoginView(),
-          binding: OtpLoginBinding(),
-        );
+        controller.login();
       },
     );
   }
