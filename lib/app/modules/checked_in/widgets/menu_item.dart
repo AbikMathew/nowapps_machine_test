@@ -15,7 +15,7 @@ class CustomMenuItem extends StatelessWidget {
   final IconData icon;
   final String text;
   final VoidCallback onTap;
-  Color color;
+  final Color color;
 
   final controller = Get.find<CheckedInController>();
   @override

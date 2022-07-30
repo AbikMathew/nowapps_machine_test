@@ -1,14 +1,13 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nowapps_machine_test/app/modules/cart/controllers/cart_controller.dart';
-import 'package:nowapps_machine_test/app/modules/take_order/model/product_response.dart';
+import 'package:nowapps_machine_test/app/modules/take_order/widgets/product_name_and_price.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../cart/widgets/quantity_changer.dart';
+import '../../../data/services/database_services.dart';
 import '../controllers/take_order_controller.dart';
-import '../model/product.dart';
+import 'add_to_cart_button.dart';
+import 'img_widget.dart';
 
 class ProductTile extends StatelessWidget {
   ProductTile({
@@ -44,10 +43,7 @@ class ProductTile extends StatelessWidget {
                 children: [
                   ProductNameAndPrice(product: product),
                   Obx(() {
-                    log(cartController.inCartIDs.contains(index).toString());
                     if (cartController.inCartIDs.contains(index)) {
-                      log('cartcontrollerinCartIDs ${cartController.inCartIDs.toString()}');
-                      log('index is $index');
                       return SizedBox(
                           width: 130,
                           child: QuantityChanger(
@@ -63,102 +59,76 @@ class ProductTile extends StatelessWidget {
               ),
             ],
           ),
-          // Align(
-          //     alignment: Alignment.bottomRight,
-          //     child:
-
-          // child: AddToCartButton(index: index, product: product),
-          // )
         ],
       ),
     );
   }
 }
 
-class AddToCartButton extends StatelessWidget {
-  AddToCartButton({
+class QuantityChanger extends StatelessWidget {
+  final int index;
+  final controller = Get.find<CartController>();
+  final takeOrderController = Get.find<TakeOrderController>();
+  QuantityChanger({
     Key? key,
     required this.index,
-    required this.product,
   }) : super(key: key);
-
-  final controller = Get.find<TakeOrderController>();
-  final int index;
-  final Products product;
 
   @override
   Widget build(BuildContext context) {
+    var product = controller.cartItems[index];
+
     return Container(
-      width: 105,
-      height: 30,
-      child: ElevatedButton(
-        child: Text('Add to Cart'),
-        onPressed: () {
-          controller.addProduct(
-              Product(
-                  id: index,
-                  name: product.prodName,
-                  price: product.prodMrp!,
-                  image: product.prodImage!,
-                  quantity: '1'),
-              index);
-        },
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(30),
+        color: Colors.blue,
       ),
-    );
-  }
-}
-
-class ProductNameAndPrice extends StatelessWidget {
-  const ProductNameAndPrice({
-    Key? key,
-    required this.product,
-  }) : super(key: key);
-
-  final Products product;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(
-          width: 55.w,
-          child: Text(
-            product.prodName!,
-            style: TextStyle(color: Colors.white, fontSize: 17),
-          ),
-        ),
-        Text(
-          '₹ ${product.prodMrp}',
-          style: TextStyle(color: Colors.red, fontSize: 16),
-        ),
-      ],
-    );
-  }
-}
-
-class ImgWidget extends StatelessWidget {
-  const ImgWidget({
-    Key? key,
-    required this.product,
-  }) : super(key: key);
-
-  final Products product;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 32.w,
-      width: 32.w,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(10),
-        child: Image.network(
-          product.prodImage!,
-          errorBuilder:
-              (BuildContext context, Object exception, StackTrace? stackTrace) {
-            return Image.asset('assets/images/dryer.jpg');
-          },
+      child: Obx(
+        () => Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          // mainAxisSize: MainAxisSize.min,
+          children: [
+            TextButton(
+              onPressed: () async {
+                await decreaseQty(productID: product.id!);
+                controller.qtyChanger();
+              },
+              child: controller.cartItems[index].quantity == '1'
+                  ? Text(
+                      'Remove',
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    )
+                  : const Icon(
+                      Icons.remove,
+                      color: Colors.white,
+                    ),
+            ),
+            Text(
+              controller.cartItems[index].quantity == '1'
+                  ? ''
+                  : controller.cartItems[index].quantity.toString(),
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.white,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            IconButton(
+              onPressed: (() async {
+                await increseQty(product.id!);
+                controller.qtyChanger();
+              }),
+              icon: const Icon(
+                Icons.add,
+                color: Colors.white,
+                size: 20,
+              ),
+            )
+          ],
         ),
       ),
     );

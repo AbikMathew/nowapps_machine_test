@@ -39,12 +39,14 @@ class CartController extends GetxController {
   }
 
   buyNow() async {
-    Get.dialog(AlertDialog(
-      title: Text(
-        'Your Order has been placed successfully',
-        textAlign: TextAlign.center,
+    Get.dialog(
+      AlertDialog(
+        title: Text(
+          'Your Order has been placed successfully',
+          textAlign: TextAlign.center,
+        ),
       ),
-    ));
+    );
 
     //without checkout permission == granted, user can't checkout
     getStorage.write('checkoutPermission', 'granted');

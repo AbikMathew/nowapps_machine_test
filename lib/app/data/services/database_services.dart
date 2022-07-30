@@ -22,16 +22,17 @@ openDB() async {
 }
 
 Future<List<Product>> getCartItems() async {
-  List<Product> _productList = [];
-  final _values = await _db.rawQuery('SELECT * FROM Cart');
+  List<Product> productList = [];
+  final values = await _db.rawQuery('SELECT * FROM Cart');
 
-  for (final _value in _values) {
-    _productList.add(
-      Product.fromMap(_value),
-    ); //convert map to product object, and add to _productList
+  //convert map to product object, and add to productList
+  for (final value in values) {
+    productList.add(
+      Product.fromMap(value),
+    );
   }
-  log('cart values $_values');
-  return _productList;
+  log('cart values $values');
+  return productList;
 }
 
 addToCart(Product product, int index) async {
@@ -73,7 +74,7 @@ decreaseQty({required int productID}) async {
       //If quantity is greater than 1 then decrease the quantity
       await _db.rawUpdate(
           'UPDATE Cart SET quantity = quantity - 1 WHERE id = ?', [productID]);
-          log('inCartIDs ${cartController.inCartIDs}');
+      log('inCartIDs ${cartController.inCartIDs}');
     } else {
       //If quantity is 1 then delete the product from the cart
       removeFromCart(productID);
@@ -88,5 +89,6 @@ removeFromCart(int productID) async {
 }
 
 deleteCart() async {
+  cartController.inCartIDs.clear();
   await _db.delete('Cart');
 }
