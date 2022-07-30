@@ -11,8 +11,8 @@ class OtpLoginController extends GetxController {
   var phoneNumberController = TextEditingController().obs;
 
   void login() {
-    GetUtils.isPhoneNumber(phoneNumberController.value.text)
-        ? Get.offAll(OtpLoginView(),binding: OtpLoginBinding())
+    isPhoneNumber(phoneNumberController.value.text)
+        ? Get.offAll(OtpLoginView(), binding: OtpLoginBinding())
         : Get.snackbar('Error', 'Please enter a valid phone number',
             snackPosition: SnackPosition.BOTTOM,
             backgroundColor: Colors.red,
@@ -22,6 +22,15 @@ class OtpLoginController extends GetxController {
   void verifyOtp(String otp) {
     getStorage.write('logged_in', true);
     Get.offAllNamed(Routes.HOME);
+  }
+
+  static bool isPhoneNumber(String s) {
+    if (s.length != 10) return false;
+    return hasMatch(s, r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$');
+  }
+
+  static bool hasMatch(String? value, String pattern) {
+    return (value == null) ? false : RegExp(pattern).hasMatch(value);
   }
 
   @override
