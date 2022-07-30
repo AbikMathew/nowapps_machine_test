@@ -1,8 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:nowapps_machine_test/app/modules/otp_login/bindings/otp_login_binding.dart';
 import 'package:nowapps_machine_test/app/modules/otp_login/views/otp_login_view.dart';
 
 import '../../../routes/app_pages.dart';
@@ -13,7 +12,7 @@ class OtpLoginController extends GetxController {
 
   void login() {
     GetUtils.isPhoneNumber(phoneNumberController.value.text)
-        ? Get.offAll(OtpLoginView())
+        ? Get.offAll(OtpLoginView(),binding: OtpLoginBinding())
         : Get.snackbar('Error', 'Please enter a valid phone number',
             snackPosition: SnackPosition.BOTTOM,
             backgroundColor: Colors.red,
