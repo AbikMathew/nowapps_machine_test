@@ -29,6 +29,14 @@ class EnterPhoneNoView extends GetView<OtpLoginController> {
               height: 10,
             ),
             Obx(() => TextField(
+                  onChanged: (value) {
+                    // if (GetUtils.isPhoneNumber(value)) {
+                    //   if (value.length < 10) {
+                    //     // Get.toNamed(AppPages.otpLogin, arguments: value);
+                    //       return ;
+                    //   }
+                    // } else {}
+                  },
                   // autovalidateMode: AutovalidateMode.onUserInteraction,
                   // validator: (value) {
                   //   if (value!.length < 4) {
@@ -38,6 +46,7 @@ class EnterPhoneNoView extends GetView<OtpLoginController> {
                   // },
                   controller: controller.phoneNumberController.value,
                   keyboardType: TextInputType.number,
+
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Phone number',
