@@ -4,11 +4,8 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:nowapps_machine_test/app/modules/take_order/controllers/take_order_controller.dart';
-import 'package:nowapps_machine_test/app/modules/take_order/model/product.dart';
 import 'package:sizer/sizer.dart';
 
-// import '../../../routes/app_pages.dart';
-import '../../take_order/views/take_order_view.dart';
 import '../controllers/cart_controller.dart';
 import '../widgets/quantity_changer.dart';
 
@@ -31,10 +28,8 @@ class CartView extends GetView<CartController> {
                     child: ListView.builder(
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
-                        // final product =
-                        //     takeOrderController.product[index + 1][2];
-                  
-                        return CartProductCard(controller: controller, index: index);
+                        return CartProductCard(
+                            controller: controller, index: index);
                       },
                       itemCount: controller.cartItems.length,
                     ),
@@ -51,7 +46,7 @@ class CartView extends GetView<CartController> {
                               style: TextStyle(fontSize: 25),
                             ),
                             Text(
-                              '₹ 200',
+                              '₹ ${controller.total}',
                               style: TextStyle(fontSize: 25),
                             ),
                             // Text('data'),
@@ -78,16 +73,12 @@ class CartView extends GetView<CartController> {
 
 class CartProductCard extends StatelessWidget {
   final CartController controller;
-  // final Product product;
-  // final int quatity;
   final int index;
 
   final takeOrderController = Get.find<TakeOrderController>();
   CartProductCard({
     Key? key,
     required this.controller,
-    // required this.product,
-    // required this.quatity,
     required this.index,
   }) : super(key: key);
   @override
@@ -112,7 +103,12 @@ class CartProductCard extends StatelessWidget {
                   width: 32.w,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
-                    child: Image.network(cartProduct.image),
+                    child: Image.network(
+                      cartProduct.image,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Image.asset('assets/images/no_image.jpg');
+                      },
+                    ),
                   ),
                 ),
                 SizedBox(width: 8),
@@ -129,7 +125,7 @@ class CartProductCard extends StatelessWidget {
                     ),
                     Text(
                       cartProduct.price,
-                      style: TextStyle(color: Colors.red, fontSize: 20),
+                      style: TextStyle(color: Colors.red, fontSize: 17),
                     ),
                   ],
                 ),
@@ -139,7 +135,7 @@ class CartProductCard extends StatelessWidget {
             Align(
               alignment: Alignment.bottomRight,
               child: Container(
-                width: 115,
+                width: 125,
                 height: 40,
                 child: QuantityChanger(
                   index: index,

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:nowapps_machine_test/app/data/services/database_services.dart';
 import 'package:nowapps_machine_test/app/modules/take_order/model/product.dart';
 import 'package:nowapps_machine_test/app/modules/take_order/widgets/appbar_cart.dart';
 import 'package:sizer/sizer.dart';
@@ -15,26 +14,6 @@ class TakeOrderView extends GetView<TakeOrderController> {
             title: Text('Take Order'),
             actions: [
               CartIcon(),
-              IconButton(
-                onPressed: () {
-                  decreaseQty(productID: 0);
-                },
-                icon: Icon(Icons.delete),
-              ),
-              IconButton(
-                onPressed: () {
-                  increseQty(1);
-                  // addToCart(
-                  //   Product(
-                  //       id: 1,
-                  //       name: 'abik',
-                  //       price: '100',
-                  //       image: 'sfsdfs',
-                  //       quantity: 1),
-                  // );
-                },
-                icon: Icon(Icons.add),
-              ),
             ],
           ),
           body: controller.isProductLoading.value
@@ -87,7 +66,6 @@ class ProductTile extends StatelessWidget {
                       return Image.asset('assets/images/no_image.jpg');
                     },
                   ),
-                  // child: Image(image: NetworkImage('')),
                 ),
               ),
               SizedBox(width: 8),
@@ -118,28 +96,14 @@ class ProductTile extends StatelessWidget {
               child: ElevatedButton(
                 child: Text('Add to Cart'),
                 onPressed: () {
-                  controller.addProduct( Product(
+                  controller.addProduct(
+                      Product(
                           id: index,
                           name: product.prodName,
                           price: product.prodMrp!,
                           image: product.prodImage!,
-                          quantity: '1'), index);
-                  // addToCart(
-                  //     Product(
-                  //         id: index,
-                  //         name: 'chellom',
-                  //         price: '100',
-                  //         image: 'sfsdfs',
-                  //         quantity: 1),
-                  //     index);
-                  // controller.addProduct(
-                  //   Product(
-                  //     name: product.prodName.toString(),
-                  //     price: product.prodMrp!.toString(),
-                  //     image: product.prodImage.toString(), quantity: product.quantity!,
-                  //     // id: int.parse(product.prodId!),
-                  //   ),
-                  // );
+                          quantity: '1'),
+                      index);
                 },
               ),
             ),

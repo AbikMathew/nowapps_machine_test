@@ -7,18 +7,29 @@ import 'package:nowapps_machine_test/app/modules/take_order/model/product.dart';
 
 class CartController extends GetxController {
   RxList<Product> cartItems = <Product>[].obs;
-  // Rx<Future<List<Product>>>? cartItems;
+  final RxDouble total = 0.0.obs;
 
   @override
   void onInit() async {
     super.onInit();
     qtyChanger();
-    // cartItems[0]. = 2;
     log('ഇതൊക്കെ എന്തു ${cartItems}');
   }
 
   qtyChanger() async {
+    total.value = 0.0;
     cartItems.value = await getCartItems();
+    for (var element in cartItems) {
+      total.value += double.parse(element.price) * double.parse(element.quantity);
+    }
+    // cartItems.listen((event) {
+    //   total.value = event.fold(
+    //       0.0,
+    //       (previous, element) =>
+    //           previous +
+    //           double.parse(element.price) * double.parse(element.quantity));
+    // });
+    log(total.toString());
   }
 
   @override

@@ -4,7 +4,7 @@ import 'package:nowapps_machine_test/app/modules/cart/controllers/cart_controlle
 import 'package:nowapps_machine_test/app/routes/app_pages.dart';
 
 class CartIcon extends StatelessWidget {
-  final controller = Get.lazyPut(() => CartController());
+  final controller = Get.find<CartController>();
   CartIcon({
     Key? key,
   }) : super(key: key);
@@ -24,14 +24,12 @@ class CartIcon extends StatelessWidget {
           CircleAvatar(
             backgroundColor: Colors.red,
             radius: 9,
-            // child:
-            //  Obx(
-            //   () => Text(,
-            //     // controller.cartItems.length.toString(),
-
-            //     style: TextStyle(fontSize: 13),
-            //   ),
-            // ),
+            child: Obx(
+              () => Text(
+                controller.cartItems.length.toString(),
+                style: TextStyle(fontSize: 13),
+              ),
+            ),
           ),
         ],
       ),

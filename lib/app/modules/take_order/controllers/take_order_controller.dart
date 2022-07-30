@@ -1,50 +1,30 @@
 import 'dart:developer';
 
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nowapps_machine_test/app/data/services/api_services.dart';
 import 'package:nowapps_machine_test/app/data/services/database_services.dart';
+import 'package:nowapps_machine_test/app/modules/cart/controllers/cart_controller.dart';
 import 'package:nowapps_machine_test/app/modules/take_order/model/product.dart';
 import 'package:nowapps_machine_test/app/modules/take_order/model/product_response.dart';
 
 class TakeOrderController extends GetxController {
   var isProductLoading = false.obs;
   ProductResponse? productResponse;
-
-// Add a dictionary to store the products in the cart
-  var _products = {}.obs;
+  final CartController cartController = Get.put(CartController());
 
   void addProduct(Product product, int index) async {
     await addToCart(product, index);
+    cartController.qtyChanger();
+
+    Get.closeAllSnackbars();
 
     Get.snackbar(
       'Product Added',
       'You have added  to the cart',
       snackPosition: SnackPosition.BOTTOM,
-      backgroundColor: Colors.white,
-      duration: Duration(milliseconds: 1500),
     );
   }
 
-  // void removeProduct(Product product) {
-  //   var productQuantity = _products[product.id][0];
-  //   // log(productQuantity.toString());
-
-  //   if (_products.containsKey(product.id) && productQuantity == 1) {
-  //     log('kerunnundoo');
-  //     log(product.id.toString());
-  //     _products.removeWhere((key, value) => key == product.id);
-  //   } else {
-  //     _products[product.id][0]--;
-  //     log(_products[product.id][0].toString());
-  //   }
-  // }
-
-  get product => _products;
-
-// get productSubTotal
-
-// get productTotal
   @override
   void onInit() {
     super.onInit();
@@ -58,12 +38,11 @@ class TakeOrderController extends GetxController {
       if (response.statusCode == 200) {
         productResponse = ProductResponse.fromJson(response.data);
         log(productResponse!.data!.products![0].prodMrp.toString());
-        // = response.data;
-        // log(response.data.toString());
+
         isProductLoading.value = false;
       }
     } catch (e) {
-      log(' onnunm illa');
+      log(e.toString());
     }
   }
 

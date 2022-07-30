@@ -23,7 +23,6 @@ class QuantityChanger extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // log(controller.product[index + 1][0].toString());
     var _product = controller.cartItems[index];
 
     return Container(
@@ -31,42 +30,52 @@ class QuantityChanger extends StatelessWidget {
         borderRadius: BorderRadius.circular(30),
         color: color,
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          IconButton(
-            onPressed: () async {
-              await decreaseQty(productID: _product.id!);
-              controller.qtyChanger();
-            },
-            icon: const Icon(
-              Icons.remove,
-              color: Colors.white,
-            ),
-          ),
-          Obx(
-            () => Text(
-              controller.cartItems[index].quantity,
-              style: TextStyle(
-                fontSize: 20,
-                color: Colors.white,
-                fontWeight: FontWeight.w500,
+      child: Obx(() => Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            // mainAxisSize: MainAxisSize.min,
+            children: [
+              TextButton(
+                onPressed: () async {
+                  await decreaseQty(productID: _product.id!);
+                  controller.qtyChanger();
+                },
+                child: controller.cartItems[index].quantity == '1'
+                    ? Text(
+                        'Remove',
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      )
+                    : const Icon(
+                        Icons.remove,
+                        color: Colors.white,
+                      ),
               ),
-            ),
-          ),
-          IconButton(
-            onPressed: (() async {
-              await increseQty(_product.id!);
-              controller.qtyChanger();
-            }),
-            icon: const Icon(
-              Icons.add,
-              color: Colors.white,
-            ),
-          )
-        ],
-      ),
+              Text(
+                controller.cartItems[index].quantity == '1'
+                    ? ''
+                    : controller.cartItems[index].quantity.toString(),
+                style: TextStyle(
+                  fontSize: 15,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              IconButton(
+                onPressed: (() async {
+                  await increseQty(_product.id!);
+                  controller.qtyChanger();
+                }),
+                icon: const Icon(
+                  Icons.add,
+                  color: Colors.white,
+                  size: 20,
+                ),
+              )
+            ],
+          )),
     );
   }
 }
