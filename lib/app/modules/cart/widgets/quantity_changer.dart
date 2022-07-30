@@ -12,8 +12,8 @@ class QuantityChanger extends StatelessWidget {
   final Color color;
   final VoidCallback onPressed;
   final int index;
-  var controller = Get.find<CartController>();
-  var takeOrderController = Get.find<TakeOrderController>();
+  final controller = Get.find<CartController>();
+  final takeOrderController = Get.find<TakeOrderController>();
   QuantityChanger({
     Key? key,
     required this.index,

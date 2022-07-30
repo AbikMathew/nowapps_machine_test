@@ -8,7 +8,7 @@ import '../controllers/checked_in_controller.dart';
 import '../widgets/menu_item.dart';
 
 class CheckedInView extends GetView<CheckedInController> {
-  var retailerName = Get.arguments;
+  final retailerName = Get.arguments;
 
   @override
   Widget build(BuildContext context) {

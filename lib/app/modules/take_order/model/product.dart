@@ -1,4 +1,3 @@
-import 'package:nowapps_machine_test/app/modules/take_order/views/take_order_view.dart';
 
 class Product {
   final int? id;

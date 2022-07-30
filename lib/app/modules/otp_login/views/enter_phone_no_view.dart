@@ -26,43 +26,33 @@ class EnterPhoneNoView extends GetView<OtpLoginController> {
             SizedBox(
               height: 10,
             ),
-            Obx(() => TextField(
-                  onChanged: (value) {
-                    // if (GetUtils.isPhoneNumber(value)) {
-                    //   if (value.length < 10) {
-                    //     // Get.toNamed(AppPages.otpLogin, arguments: value);
-                    //       return ;
-                    //   }
-                    // } else {}
-                  },
-                  // autovalidateMode: AutovalidateMode.onUserInteraction,
-                  // validator: (value) {
-                  //   if (value!.length < 4) {
-                  //     log('message');
-                  //   }
-                  //   return null;
-                  // },
-                  controller: controller.phoneNumberController.value,
-                  keyboardType: TextInputType.number,
-
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Phone number',
-                    // errorText: controller.errorText,
-                  ),
-                )),
-            ElevatedButton(
-              child: Text('Login'),
-              onPressed: () {
-                Get.offAll(
-                  OtpLoginView(),
-                  binding: OtpLoginBinding(),
-                );
-              },
-            )
+            Obx(
+              () => TextField(
+                onChanged: (value) {},
+                controller: controller.phoneNumberController.value,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Phone number',
+                ),
+              ),
+            ),
+            loginButton()
           ],
         ),
       ),
+    );
+  }
+
+  ElevatedButton loginButton() {
+    return ElevatedButton(
+      child: Text('Login'),
+      onPressed: () {
+        Get.offAll(
+          OtpLoginView(),
+          binding: OtpLoginBinding(),
+        );
+      },
     );
   }
 }
