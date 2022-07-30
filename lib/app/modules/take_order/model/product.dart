@@ -1,33 +1,28 @@
 import 'package:nowapps_machine_test/app/modules/take_order/views/take_order_view.dart';
 
 class Product {
-  final String? name;
-  final double? price;
-  final String image;
   final int? id;
+  final String? name;
+  final String price;
+  final String image;
+  final String quantity;
 
   const Product({
+    required this.id,
     required this.name,
     required this.price,
     required this.image,
-    required this.id,
+    required this.quantity,
   });
 
-  // static List products = [
-  //   Product(
-  //       name: 'Apple',
-  //       price: 10,
-  //       image:
-  //           'https://www.daikinindia.com/sites/default/files/air-conditioners.png'),
-  //   Product(
-  //       name: 'wname',
-  //       price: 20,
-  //       image:
-  //           'https://www.daikinindia.com/sites/default/files/air-conditioners.png'),
-  //   Product(
-  //       name: 'lolaame',
-  //       price: 30,
-  //       image:
-  //           'https://www.daikinindia.com/sites/default/files/air-conditioners.png'),
-  // ];
+  static Product fromMap(Map<String, Object?> mapFromDB) {
+    final int id = mapFromDB['id'] as int;
+    final String name = mapFromDB['name'] as String;
+    final String price = mapFromDB['price'] as String;
+    final String image = mapFromDB['image'] as String;
+    final String quantity = mapFromDB['quantity'] as String;
+
+    return Product(
+        id: id, name: name, price: price, image: image, quantity: quantity);
+  }
 }

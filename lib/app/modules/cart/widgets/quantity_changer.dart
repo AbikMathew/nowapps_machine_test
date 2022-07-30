@@ -12,7 +12,7 @@ class QuantityChanger extends StatelessWidget {
   final VoidCallback onPressed;
   final int index;
   var controller = Get.find<TakeOrderController>();
-  
+
   QuantityChanger({
     Key? key,
     required this.index,
@@ -32,9 +32,9 @@ class QuantityChanger extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           IconButton(
-            onPressed: () =>
-                // log(controller.product[index + 1][1].toString()),
-                controller.removeProduct(controller.product[index + 1][1]),
+            onPressed: () {},
+            // log(controller.product[index + 1][1].toString()),
+            // controller.removeProduct(controller.product[index + 1][1]),
             icon: const Icon(
               Icons.remove,
               color: Colors.white,
@@ -51,8 +51,7 @@ class QuantityChanger extends StatelessWidget {
             ),
           ),
           IconButton(
-            onPressed: (() =>
-                controller.addProduct(controller.product[index + 1][1])),
+            onPressed: (() {}),
             icon: const Icon(
               Icons.add,
               color: Colors.white,

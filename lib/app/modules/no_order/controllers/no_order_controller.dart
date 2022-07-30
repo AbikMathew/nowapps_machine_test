@@ -7,6 +7,25 @@ class NoOrderController extends GetxController {
   final reasonController = TextEditingController().obs;
   submit() {
     // log(reasonController.value.text);
+        Get.defaultDialog(
+                    title: 'Submit Reason',
+                    content: Text(
+                        'Submit the reason for not taking orders'),
+                    actions: [
+                      ElevatedButton(
+                        child: Text('Cancel'),
+                        onPressed: () => Get.back(),
+                      ),
+                      ElevatedButton(
+                        child: Text('Submit'),
+                        onPressed: () {
+                          // controller.checkinToRetailer(a[index]);
+                          Get.back();
+                          Get.back();
+                        },
+                      ),
+                    ],
+                  );
   }
   final count = 0.obs;
   @override

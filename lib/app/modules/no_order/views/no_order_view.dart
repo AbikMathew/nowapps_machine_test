@@ -11,14 +11,20 @@ class NoOrderView extends GetView<NoOrderController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('NoOrderView'),
+        title: Text('No Order'),
         centerTitle: true,
       ),
       body: Column(
         children: [
-          Text('Please enter the reason for not taking any orders:'),
           Padding(
             padding: const EdgeInsets.all(8.0),
+            child: Text(
+              'Please enter the reason for not taking any orders:',
+              style: TextStyle(fontSize: 20),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 10),
             child: Obx(
               () {
                 // log(controller.reasonController.value.text);
@@ -43,7 +49,7 @@ class NoOrderView extends GetView<NoOrderController> {
           ElevatedButton(
             child: Text('Submit'),
             onPressed: () {
-              // controller.submit();
+              controller.submit();
             },
           )
         ],
@@ -52,11 +58,3 @@ class NoOrderView extends GetView<NoOrderController> {
   }
 }
 
-class ClassName extends StatelessWidget {
-  ClassName([this.a = 'kujghi']);
-final String? a;
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}

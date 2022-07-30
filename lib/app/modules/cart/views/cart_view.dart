@@ -23,7 +23,7 @@ class CartView extends GetView<CartController> {
           title: Text('Cart'),
           centerTitle: true,
         ),
-        body: takeOrderController.product.value.isEmpty
+        body: controller.cartItems.isEmpty
             ? Center(child: Text('No Products are added to the cart'))
             : Column(
                 children: [
@@ -31,14 +31,12 @@ class CartView extends GetView<CartController> {
                     child: ListView.builder(
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
-                        final product =
-                            takeOrderController.product[index + 1][2];
-                            log('vishvajith log');
-                        log(product.toString());
-                        return Container();
-                        // return CartProductCard(index: index);
+                        // final product =
+                        //     takeOrderController.product[index + 1][2];
+                  
+                        return CartProductCard(controller: controller, index: index);
                       },
-                      itemCount: takeOrderController.product.value.length,
+                      itemCount: controller.cartItems.length,
                     ),
                   ),
                   Padding(
@@ -62,7 +60,9 @@ class CartView extends GetView<CartController> {
                         SizedBox(
                           width: 95.w,
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              controller.buyNow();
+                            },
                             child: Text('Buy Now'),
                           ),
                         ),
@@ -77,7 +77,7 @@ class CartView extends GetView<CartController> {
 }
 
 class CartProductCard extends StatelessWidget {
-  // final TakeOrderController controller;
+  final CartController controller;
   // final Product product;
   // final int quatity;
   final int index;
@@ -85,15 +85,14 @@ class CartProductCard extends StatelessWidget {
   final takeOrderController = Get.find<TakeOrderController>();
   CartProductCard({
     Key? key,
-    // required this.controller,
+    required this.controller,
     // required this.product,
     // required this.quatity,
     required this.index,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    var _product = takeOrderController.product[index + 1][1];
-
+    var cartProduct = controller.cartItems[index];
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -113,7 +112,7 @@ class CartProductCard extends StatelessWidget {
                   width: 32.w,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
-                    child: Image.network(_product.image),
+                    child: Image.network(cartProduct.image),
                   ),
                 ),
                 SizedBox(width: 8),
@@ -124,12 +123,12 @@ class CartProductCard extends StatelessWidget {
                     SizedBox(
                       width: 55.w,
                       child: Text(
-                        _product.name,
+                        cartProduct.name!,
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
                     ),
                     Text(
-                      _product.price.toString(),
+                      cartProduct.price,
                       style: TextStyle(color: Colors.red, fontSize: 20),
                     ),
                   ],
@@ -142,11 +141,11 @@ class CartProductCard extends StatelessWidget {
               child: Container(
                 width: 115,
                 height: 40,
-                child: QuantityChanger(
-                  index: index,
-                  color: Colors.blue,
-                  onPressed: () {},
-                ),
+                // child: QuantityChanger(
+                //   index: index,
+                //   color: Colors.blue,
+                //   onPressed: () {},
+                // ),
               ),
             ),
             // Align(
@@ -168,18 +167,3 @@ class CartProductCard extends StatelessWidget {
     );
   }
 }
-
-class Scerfold {
-  // Scerfold();
-  // Scerfold();
-  int? id;
-  int? obj;
-  
-  
-  Scerfold(this.id,this.obj);
-  // Scerfold(10,10);
-}
-Scerfold scObj=Scerfold(10,10);
-
-
-  // Scerfold()

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -8,7 +10,10 @@ import 'package:sizer/sizer.dart';
 import 'app/routes/app_pages.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   await GetStorage.init();
+  // log('ithenkilum');
   await openDB();               //to open sqflite database
 
   runApp(

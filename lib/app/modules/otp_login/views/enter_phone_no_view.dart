@@ -21,7 +21,13 @@ class EnterPhoneNoView extends GetView<OtpLoginController> {
           mainAxisAlignment: MainAxisAlignment.center,
           // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Enter your phone number'),
+            Text(
+              'Enter your phone number',
+              style: TextStyle(fontSize: 20),
+            ),
+            SizedBox(
+              height: 10,
+            ),
             Obx(() => TextField(
                   // autovalidateMode: AutovalidateMode.onUserInteraction,
                   // validator: (value) {
@@ -35,7 +41,7 @@ class EnterPhoneNoView extends GetView<OtpLoginController> {
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Phone number',
-                    errorText: controller.errorText,
+                    // errorText: controller.errorText,
                   ),
                 )),
             ElevatedButton(

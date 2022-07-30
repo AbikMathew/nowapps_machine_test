@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:nowapps_machine_test/app/data/services/database_services.dart';
 import 'package:nowapps_machine_test/app/modules/take_order/model/product.dart';
 import 'package:nowapps_machine_test/app/modules/take_order/widgets/appbar_cart.dart';
 import 'package:sizer/sizer.dart';
@@ -12,7 +13,29 @@ class TakeOrderView extends GetView<TakeOrderController> {
     return Obx(() => Scaffold(
           appBar: AppBar(
             title: Text('Take Order'),
-            actions: [CartIcon()],
+            actions: [
+              CartIcon(),
+              IconButton(
+                onPressed: () {
+                  decreaseQty(productID: 0);
+                },
+                icon: Icon(Icons.delete),
+              ),
+              IconButton(
+                onPressed: () {
+                  increseQty(1);
+                  // addToCart(
+                  //   Product(
+                  //       id: 1,
+                  //       name: 'abik',
+                  //       price: '100',
+                  //       image: 'sfsdfs',
+                  //       quantity: 1),
+                  // );
+                },
+                icon: Icon(Icons.add),
+              ),
+            ],
           ),
           body: controller.isProductLoading.value
               ? Center(child: CircularProgressIndicator())
@@ -58,7 +81,7 @@ class ProductTile extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: Image.network(
-                    product.prodImage.toString(),
+                    product.prodImage!,
                     errorBuilder: (BuildContext context, Object exception,
                         StackTrace? stackTrace) {
                       return Image.asset('assets/images/no_image.jpg');
@@ -75,12 +98,12 @@ class ProductTile extends StatelessWidget {
                   SizedBox(
                     width: 55.w,
                     child: Text(
-                      product.prodName.toString(),
+                      product.prodName!,
                       style: TextStyle(color: Colors.white, fontSize: 17),
                     ),
                   ),
                   Text(
-                    '₹ ${product.prodMrp.toString()}',
+                    '₹ ${product.prodMrp}',
                     style: TextStyle(color: Colors.red, fontSize: 17),
                   ),
                 ],
@@ -95,14 +118,28 @@ class ProductTile extends StatelessWidget {
               child: ElevatedButton(
                 child: Text('Add to Cart'),
                 onPressed: () {
-                  controller.addProduct(
-                    Product(
-                      name: product.prodName.toString(),
-                      price: double.parse(product.prodMrp!),
-                      image: product.prodImage.toString(),
-                      id: int.parse(product.prodId!),
-                    ),
-                  );
+                  controller.addProduct( Product(
+                          id: index,
+                          name: product.prodName,
+                          price: product.prodMrp!,
+                          image: product.prodImage!,
+                          quantity: '1'), index);
+                  // addToCart(
+                  //     Product(
+                  //         id: index,
+                  //         name: 'chellom',
+                  //         price: '100',
+                  //         image: 'sfsdfs',
+                  //         quantity: 1),
+                  //     index);
+                  // controller.addProduct(
+                  //   Product(
+                  //     name: product.prodName.toString(),
+                  //     price: product.prodMrp!.toString(),
+                  //     image: product.prodImage.toString(), quantity: product.quantity!,
+                  //     // id: int.parse(product.prodId!),
+                  //   ),
+                  // );
                 },
               ),
             ),
