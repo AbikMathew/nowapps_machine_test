@@ -31,10 +31,14 @@ class CheckedInView extends GetView<CheckedInController> {
             icon: Icons.remove_shopping_cart,
             onTap: () => Get.toNamed(Routes.NO_ORDER),
           ),
-          CustomMenuItem(
-            text: 'Checkout',
-            icon: Icons.logout,
-            onTap: () => controller.checkout(),
+          Obx(
+            () =>
+             CustomMenuItem(
+              text: 'Checkout',
+              icon: Icons.logout,
+              color: controller.checkoutColor.value,
+              onTap: () => controller.checkout(),
+            ),
           ),
         ],
       ),

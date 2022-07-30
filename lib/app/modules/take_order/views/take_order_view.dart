@@ -21,7 +21,7 @@ class TakeOrderView extends GetView<TakeOrderController> {
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: ProductTile(index: index),
+                      child: ProductTile(index: index) ,
                     );
                   },
                   itemCount: 5,

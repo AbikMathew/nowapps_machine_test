@@ -27,7 +27,7 @@ class EnterPhoneNoView extends GetView<OtpLoginController> {
               height: 10,
             ),
             Obx(
-              () => TextField(
+              () => TextField( 
                 onChanged: (value) {},
                 controller: controller.phoneNumberController.value,
                 keyboardType: TextInputType.number,

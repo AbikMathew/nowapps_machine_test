@@ -12,14 +12,15 @@ class CartProductCard extends StatelessWidget {
 
   final takeOrderController = Get.find<TakeOrderController>();
   final cartController = Get.find<CartController>();
+
   CartProductCard({
     Key? key,
-    // required this.controller,
     required this.index,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     var cartProduct = cartController.cartItems[index];
+    
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -42,7 +43,7 @@ class CartProductCard extends StatelessWidget {
                     child: Image.network(
                       cartProduct.image,
                       errorBuilder: (context, error, stackTrace) {
-                        return Image.asset('assets/images/no_image.jpg');
+                        return Image.asset('assets/images/dryer.jpg');
                       },
                     ),
                   ),
@@ -74,8 +75,8 @@ class CartProductCard extends StatelessWidget {
                 height: 40,
                 child: QuantityChanger(
                   index: index,
-                  color: Colors.blue,
-                  onPressed: () {},
+                  // color: Colors.blue,
+                  // onPressed: () {},
                 ),
               ),
             ),

@@ -7,6 +7,8 @@ import '../../../routes/app_pages.dart';
 class CheckedInController extends GetxController {
   var getStorage = GetStorage();
   final count = 0.obs;
+  RxBool? orderPlaced = false.obs;
+  var checkoutColor = (Colors.grey).obs;
 
   void checkout() {
     final checkoutPermission = getStorage.read('checkoutPermission');

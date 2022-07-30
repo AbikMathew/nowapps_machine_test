@@ -1,8 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nowapps_machine_test/app/modules/cart/controllers/cart_controller.dart';
 import 'package:nowapps_machine_test/app/modules/take_order/model/product_response.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../cart/widgets/quantity_changer.dart';
 import '../controllers/take_order_controller.dart';
 import '../model/product.dart';
 
@@ -13,13 +17,15 @@ class ProductTile extends StatelessWidget {
   }) : super(key: key);
 
   final controller = Get.find<TakeOrderController>();
+  final cartController = Get.find<CartController>();
   final int index;
 
   @override
   Widget build(BuildContext context) {
     final product = controller.productResponse!.data!.products![index];
+
     return Container(
-      height: 17.h,
+      height: 18.h,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: Color.fromARGB(255, 174, 204, 228),
@@ -30,15 +36,39 @@ class ProductTile extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              NoImage(product: product),
-              SizedBox(width: 8),
-              ProductNameAndPrice(product: product),
+              ImgWidget(product: product),
+              SizedBox(width: 14),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ProductNameAndPrice(product: product),
+                  Obx(() {
+                    log(cartController.inCartIDs.contains(index).toString());
+                    if (cartController.inCartIDs.contains(index)) {
+                      log('cartcontrollerinCartIDs ${cartController.inCartIDs.toString()}');
+                      log('index is $index');
+                      return SizedBox(
+                          width: 130,
+                          child: QuantityChanger(
+                              index: cartController.inCartIDs.indexOf(index)));
+                    } else {
+                      return AddToCartButton(
+                        product: product,
+                        index: index,
+                      );
+                    }
+                  })
+                ],
+              ),
             ],
           ),
-          Align(
-            alignment: Alignment.bottomRight,
-            child: AddToCartButton(index: index, product: product),
-          )
+          // Align(
+          //     alignment: Alignment.bottomRight,
+          //     child:
+
+          // child: AddToCartButton(index: index, product: product),
+          // )
         ],
       ),
     );
@@ -101,15 +131,15 @@ class ProductNameAndPrice extends StatelessWidget {
         ),
         Text(
           '₹ ${product.prodMrp}',
-          style: TextStyle(color: Colors.red, fontSize: 17),
+          style: TextStyle(color: Colors.red, fontSize: 16),
         ),
       ],
     );
   }
 }
 
-class NoImage extends StatelessWidget {
-  const NoImage({
+class ImgWidget extends StatelessWidget {
+  const ImgWidget({
     Key? key,
     required this.product,
   }) : super(key: key);
@@ -127,7 +157,7 @@ class NoImage extends StatelessWidget {
           product.prodImage!,
           errorBuilder:
               (BuildContext context, Object exception, StackTrace? stackTrace) {
-            return Image.asset('assets/images/no_image.jpg');
+            return Image.asset('assets/images/dryer.jpg');
           },
         ),
       ),

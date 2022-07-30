@@ -1,8 +1,13 @@
 import 'dart:developer';
 
+import 'package:get/get.dart';
+import 'package:nowapps_machine_test/app/modules/cart/controllers/cart_controller.dart';
 import 'package:nowapps_machine_test/app/modules/take_order/model/product.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../../modules/cart/controllers/cart_controller.dart';
+
+final cartController = Get.find<CartController>();
 late Database _db;
 
 openDB() async {
@@ -68,6 +73,7 @@ decreaseQty({required int productID}) async {
       //If quantity is greater than 1 then decrease the quantity
       await _db.rawUpdate(
           'UPDATE Cart SET quantity = quantity - 1 WHERE id = ?', [productID]);
+          log('inCartIDs ${cartController.inCartIDs}');
     } else {
       //If quantity is 1 then delete the product from the cart
       removeFromCart(productID);
@@ -77,6 +83,8 @@ decreaseQty({required int productID}) async {
 
 removeFromCart(int productID) async {
   await _db.rawDelete('DELETE FROM Cart WHERE id = ?', [productID]);
+  cartController.inCartIDs.removeWhere((element) => element == productID);
+  log('inCartIDs ${cartController.inCartIDs}');
 }
 
 deleteCart() async {

@@ -5,7 +5,7 @@ import 'package:nowapps_machine_test/app/modules/take_order/controllers/take_ord
 import 'package:sizer/sizer.dart';
 
 import '../controllers/cart_controller.dart';
-import '../widgets/car_product_card.dart';
+import '../widgets/cart_product_card.dart';
 
 class CartView extends GetView<CartController> {
   final takeOrderController = Get.find<TakeOrderController>();
