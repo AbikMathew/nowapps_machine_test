@@ -12,7 +12,6 @@ class OtpLoginController extends GetxController {
   var phoneNumberController = TextEditingController().obs;
 
   void login() {
-    log(GetUtils.isPhoneNumber(phoneNumberController.value.text).toString());
     GetUtils.isPhoneNumber(phoneNumberController.value.text)
         ? Get.offAll(OtpLoginView())
         : Get.snackbar('Error', 'Please enter a valid phone number',
