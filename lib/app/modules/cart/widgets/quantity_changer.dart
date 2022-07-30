@@ -1,8 +1,9 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nowapps_machine_test/app/data/services/database_services.dart';
+import 'package:nowapps_machine_test/app/modules/cart/controllers/cart_controller.dart';
 import 'package:nowapps_machine_test/app/modules/take_order/controllers/take_order_controller.dart';
+
 // import 'package:sizer/sizer.dart';
 // import 'package:flutter/src/foundation/key.dart';
 // import 'package:flutter/src/widgets/framework.dart';
@@ -11,8 +12,8 @@ class QuantityChanger extends StatelessWidget {
   final Color color;
   final VoidCallback onPressed;
   final int index;
-  var controller = Get.find<TakeOrderController>();
-
+  var controller = Get.find<CartController>();
+  var takeOrderController = Get.find<TakeOrderController>();
   QuantityChanger({
     Key? key,
     required this.index,
@@ -23,6 +24,8 @@ class QuantityChanger extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // log(controller.product[index + 1][0].toString());
+    var _product = controller.cartItems[index];
+
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
@@ -30,11 +33,13 @@ class QuantityChanger extends StatelessWidget {
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisSize: MainAxisSize.min,
         children: [
           IconButton(
-            onPressed: () {},
-            // log(controller.product[index + 1][1].toString()),
-            // controller.removeProduct(controller.product[index + 1][1]),
+            onPressed: () async {
+              await decreaseQty(productID: _product.id!);
+              controller.qtyChanger();
+            },
             icon: const Icon(
               Icons.remove,
               color: Colors.white,
@@ -42,7 +47,7 @@ class QuantityChanger extends StatelessWidget {
           ),
           Obx(
             () => Text(
-              controller.product[index + 1][0].toString(),
+              controller.cartItems[index].quantity,
               style: TextStyle(
                 fontSize: 20,
                 color: Colors.white,
@@ -51,7 +56,10 @@ class QuantityChanger extends StatelessWidget {
             ),
           ),
           IconButton(
-            onPressed: (() {}),
+            onPressed: (() async {
+              await increseQty(_product.id!);
+              controller.qtyChanger();
+            }),
             icon: const Icon(
               Icons.add,
               color: Colors.white,

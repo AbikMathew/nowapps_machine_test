@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nowapps_machine_test/app/data/services/database_services.dart';
-import 'package:nowapps_machine_test/app/modules/take_order/controllers/take_order_controller.dart';
 import 'package:nowapps_machine_test/app/modules/take_order/model/product.dart';
 
 class CartController extends GetxController {
@@ -13,9 +12,13 @@ class CartController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    cartItems.value = await getCartItems();
+    qtyChanger();
     // cartItems[0]. = 2;
     log('ഇതൊക്കെ എന്തു ${cartItems}');
+  }
+
+  qtyChanger() async {
+    cartItems.value = await getCartItems();
   }
 
   @override

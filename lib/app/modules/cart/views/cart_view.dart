@@ -141,11 +141,11 @@ class CartProductCard extends StatelessWidget {
               child: Container(
                 width: 115,
                 height: 40,
-                // child: QuantityChanger(
-                //   index: index,
-                //   color: Colors.blue,
-                //   onPressed: () {},
-                // ),
+                child: QuantityChanger(
+                  index: index,
+                  color: Colors.blue,
+                  onPressed: () {},
+                ),
               ),
             ),
             // Align(

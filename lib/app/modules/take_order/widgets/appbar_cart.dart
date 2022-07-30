@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nowapps_machine_test/app/modules/take_order/controllers/take_order_controller.dart';
+import 'package:nowapps_machine_test/app/modules/cart/controllers/cart_controller.dart';
 import 'package:nowapps_machine_test/app/routes/app_pages.dart';
 
 class CartIcon extends StatelessWidget {
-  final controller = Get.find<TakeOrderController>();
+  final controller = Get.lazyPut(() => CartController());
   CartIcon({
     Key? key,
   }) : super(key: key);
@@ -24,12 +24,14 @@ class CartIcon extends StatelessWidget {
           CircleAvatar(
             backgroundColor: Colors.red,
             radius: 9,
-            child: Obx(
-              () => Text(
-                controller.product.length.toString(),
-                style: TextStyle(fontSize: 13),
-              ),
-            ),
+            // child:
+            //  Obx(
+            //   () => Text(,
+            //     // controller.cartItems.length.toString(),
+
+            //     style: TextStyle(fontSize: 13),
+            //   ),
+            // ),
           ),
         ],
       ),
