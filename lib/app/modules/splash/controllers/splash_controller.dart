@@ -22,7 +22,7 @@ class SplashController extends GetxController {
         ),
       );
     }
-    //if only loggedIn => Go to home page
+    //if only loggedIn => Go to home page (Retailers list for checkIn)
     else if (loggedIn == true) {
       Future.delayed(
         const Duration(milliseconds: 1500),

@@ -21,9 +21,11 @@ Future<List<Product>> getCartItems() async {
   final _values = await _db.rawQuery('SELECT * FROM Cart');
 
   for (final _value in _values) {
-    _productList.add(Product.fromMap(_value));
+    _productList.add(
+      Product.fromMap(_value),
+    ); //convert map to product object, and add to _productList
   }
-  log('cart values ${_values}');
+  log('cart values $_values');
   return _productList;
 }
 
@@ -31,10 +33,10 @@ addToCart(Product product, int index) async {
   final id = await _db.rawQuery('SELECT id FROM Cart WHERE id = ?', [index]);
 
   if (id.isNotEmpty) {
-    //When product is already in the cart then update the quantity
+    //When a product is already added to the cart then update the quantity
     increseQty(index);
   } else {
-    //Otherwise insert it into the cart
+    //Otherwise insert the product into the cart (new entry)
     await _db.rawInsert(
         'INSERT INTO Cart(id, name, price, quantity, image) VALUES(?, ?, ?, ?, ?)',
         [
@@ -45,16 +47,16 @@ addToCart(Product product, int index) async {
           product.image
         ]);
   }
-  getCartItems();
 }
 
 increseQty(int productID) async {
+  //increase quantity of a product in the cart
   await _db.rawUpdate(
       'UPDATE Cart SET quantity = quantity + 1 WHERE id = ?', [productID]);
-  getCartItems();
 }
 
 decreaseQty({required int productID}) async {
+  //decrease quantity of a product in the cart
   final qty =
       await _db.rawQuery('SELECT quantity FROM Cart WHERE id = ?', [productID]);
 
@@ -67,12 +69,16 @@ decreaseQty({required int productID}) async {
       await _db.rawUpdate(
           'UPDATE Cart SET quantity = quantity - 1 WHERE id = ?', [productID]);
     } else {
+      //If quantity is 1 then delete the product from the cart
       removeFromCart(productID);
     }
   }
-  getCartItems();
 }
 
 removeFromCart(int productID) async {
   await _db.rawDelete('DELETE FROM Cart WHERE id = ?', [productID]);
+}
+
+deleteCart() async {
+  await _db.delete('Cart');
 }

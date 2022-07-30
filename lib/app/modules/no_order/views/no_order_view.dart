@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
@@ -24,14 +23,12 @@ class NoOrderView extends GetView<NoOrderController> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 10),
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
             child: Obx(
               () {
-                // log(controller.reasonController.value.text);
                 return TextField(
                   onChanged: ((value) {
-                    // controller.reasonController.value.text = value;
-                    log(controller.reasonController.value.text);
+                    // log(controller.reasonController.value.text);
                   }),
                   maxLines: 5,
                   controller: controller.reasonController.value,
@@ -57,4 +54,3 @@ class NoOrderView extends GetView<NoOrderController> {
     );
   }
 }
-

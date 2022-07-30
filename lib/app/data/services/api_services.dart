@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
 
 class ApiServices {
@@ -11,4 +9,3 @@ class ApiServices {
     return response;
   }
 }
-    // log(response.data.toString());

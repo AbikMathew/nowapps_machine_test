@@ -1,23 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:nowapps_machine_test/app/routes/app_pages.dart';
-import 'package:sizer/sizer.dart';
 
 import '../controllers/home_controller.dart';
+import '../widgets/retailer_card.dart';
 
 class HomeView extends GetView<HomeController> {
-  List a = [
-    'Reliance',
-    'Adithya Birla',
-    'Louis Philippe',
-    'Raymond',
-    'Pantaloons',
-    'Morty Irlam',
-    'Arrow',
-    'Rick Sanchez',
-    'Morty Smith',
-  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,101 +15,13 @@ class HomeView extends GetView<HomeController> {
       ),
       body: ListView.separated(
         separatorBuilder: (context, index) => Divider(),
-        itemCount: a.length,
+        itemCount: controller.retailersList.length,
         itemBuilder: (context, index) {
           return RetailerCard(
-            a: a,
             index: index,
-            controller: controller,
           );
         },
       ),
-    );
-  }
-}
-
-class RetailerCard extends StatelessWidget {
-  const RetailerCard({
-    Key? key,
-    required this.index,
-    required this.a,
-    required this.controller,
-  }) : super(key: key);
-
-  final List a;
-  final int index;
-  final HomeController controller;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Color.fromARGB(255, 142, 169, 191),
-          borderRadius: BorderRadius.circular(
-            5,
-          ),
-        ),
-        // height: 100,
-        child: Column(
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Image.asset(
-                    'assets/images/channel_connect_logo.webp',
-                    height: 120,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      Text(
-                        a[index],
-                        style: TextStyle(color: Colors.white,fontSize: 25),
-                      ),
-                      // Text(a[index]),
-                      // Text(a[index]),
-                    ],
-                  ),
-                )
-              ],
-            ),
-            SizedBox(
-              width: 90.w,
-              child: ElevatedButton(
-                onPressed: () {
-                  Get.defaultDialog(
-                    title: 'Check In',
-                    content: Text(
-                        'Are you sure you want to check in to ${a[index]}?'),
-                    actions: [
-                      ElevatedButton(
-                        child: Text('Cancel'),
-                        onPressed: () => Get.back(),
-                      ),
-                      ElevatedButton(
-                        child: Text('Check In'),
-                        onPressed: () {
-                          controller.checkinToRetailer(a[index]);
-                          Get.back();
-                        },
-                      ),
-                    ],
-                  );
-                },
-                child: Text('Check In'),
-              ),
-            ),
-            SizedBox(height: 8)
-          ],
-        ),
-      ),
-      // ),
     );
   }
 }

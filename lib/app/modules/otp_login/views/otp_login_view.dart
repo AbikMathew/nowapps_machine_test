@@ -20,9 +20,7 @@ class OtpLoginView extends GetView<OtpLoginController> {
           children: [
             Container(),
             Pinput(
-              onCompleted: (value) => 
-              controller.verifyOtp(value),
-              
+              onCompleted: (value) => controller.verifyOtp(value),
             ),
           ],
         ),

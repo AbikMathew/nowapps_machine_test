@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,7 +20,6 @@ class NoOrderController extends GetxController {
         ElevatedButton(
           child: Text('Submit'),
           onPressed: () {
-            // controller.checkinToRetailer(a[index]);
             Get.back();
             Get.back();
           },
@@ -29,19 +27,4 @@ class NoOrderController extends GetxController {
       ],
     );
   }
-
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {}
-  void increment() => count.value++;
 }
